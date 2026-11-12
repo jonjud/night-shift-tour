@@ -19,7 +19,7 @@ func _process(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("shift_world"):
 		if cooldown_left > 0.0:
-			print("Shift blocked, cooldown left", snappedf(cooldown_left,0.1))
+			print("Shift blocked, cooldown left ", snappedf(cooldown_left,0.1))
 			return
 		is_night = not is_night
 		cooldown_left = SHIFT_COOLDOWN

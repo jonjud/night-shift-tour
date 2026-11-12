@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bsr8i0ll2k8i3" path="res://scenes/player.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://ccah747dwagfl" path="res://scripts/main.gd" id="1_sugp2"]
 [ext_resource type="Texture2D" uid="uid://btk2asb4vpl0g" path="res://assets/tiles/tiles.png" id="2_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://j5b5ecy2iu7p" path="res://scenes/guest.tscn" id="4_jyhfs"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sugp2"]
 texture = ExtResource("2_0wfyh")
@@ -32,3 +33,14 @@ tile_set = SubResource("TileSet_htemk")
 position = Vector2(-46, -2)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=873669907]
+
+[node name="Guest" parent="." unique_id=195671990 instance=ExtResource("4_jyhfs")]
+position = Vector2(-154, 93)
+
+[node name="Guest2" parent="." unique_id=1712883963 instance=ExtResource("4_jyhfs")]
+position = Vector2(-142, 16)
+trail_offset = 24
+
+[node name="Guest3" parent="." unique_id=1664171917 instance=ExtResource("4_jyhfs")]
+position = Vector2(-138, -77)
+trail_offset = 36
