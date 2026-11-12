@@ -35,12 +35,24 @@ position = Vector2(-46, -2)
 [node name="Camera2D" type="Camera2D" parent="." unique_id=873669907]
 
 [node name="Guest" parent="." unique_id=195671990 instance=ExtResource("4_jyhfs")]
-position = Vector2(-154, 93)
+position = Vector2(-46, -2)
 
 [node name="Guest2" parent="." unique_id=1712883963 instance=ExtResource("4_jyhfs")]
-position = Vector2(-142, 16)
+position = Vector2(-46, -2)
 trail_offset = 24
 
 [node name="Guest3" parent="." unique_id=1664171917 instance=ExtResource("4_jyhfs")]
-position = Vector2(-138, -77)
+position = Vector2(-45, -2)
 trail_offset = 36
+
+[node name="FlashLayer" type="CanvasLayer" parent="." unique_id=317446317]
+
+[node name="RedFlash" type="ColorRect" parent="FlashLayer" unique_id=1183970073]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0, 0, 1)

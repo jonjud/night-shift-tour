@@ -4,9 +4,11 @@ const SHIFT_COOLDOWN : float = 1.5
 
 @onready var day_layer : TileMapLayer = $DayLayer
 @onready var night_layer : TileMapLayer = $NightLayer
+@onready var red_flash: ColorRect = $FlashLayer/RedFlash
 
 var is_night : bool = false
 var cooldown_left : float = 0.0
+
 
 func _ready() -> void:
 	#always starting in day , no matter the inspector says
@@ -32,3 +34,23 @@ func _apply_world() -> void:
 	day_layer.collision_enabled = not is_night
 	night_layer.visible = is_night
 	night_layer.collision_enabled = is_night
+
+# Check if this node with overlapped with another layer 
+func _hits_wall(node: Node2D, layer: TileMapLayer) -> bool:
+	var cell := layer.local_to_map(layer.to_local(node.global_position))
+	var data := layer.get_cell_tile_data(cell)
+	return data != null and data.get_collision_polygons_count(0) > 0
+
+# every player and guest won't ovelapped with wall
+func _can_shift_to(layer: TileMapLayer) -> bool:
+	if _hits_wall($Player, layer):
+		return false
+	for g in get_tree().get_nodes_in_group("guests"):
+		if _hits_wall(g, layer):
+			return false
+	return true
+
+# red screen flashing
+func _flash_red() -> void:
+	red_flash.modulate.a = 1.0
+	create_tween().tween_property(red_flash, "modulate:a", 0.0, 0.3)
