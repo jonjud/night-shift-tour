@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://ccah747dwagfl" path="res://scripts/main.gd" id="1_sugp2"]
 [ext_resource type="Texture2D" uid="uid://btk2asb4vpl0g" path="res://assets/tiles/tiles.png" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://j5b5ecy2iu7p" path="res://scenes/guest.tscn" id="4_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://b7bp7xxiq4efw" path="res://scenes/ghost.tscn" id="5_tbgi4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sugp2"]
 texture = ExtResource("2_0wfyh")
@@ -44,6 +45,8 @@ trail_offset = 24
 [node name="Guest3" parent="." unique_id=1664171917 instance=ExtResource("4_jyhfs")]
 position = Vector2(-45, -2)
 trail_offset = 36
+
+[node name="Ghost" parent="." unique_id=1940285773 instance=ExtResource("5_tbgi4")]
 
 [node name="FlashLayer" type="CanvasLayer" parent="." unique_id=317446317]
 

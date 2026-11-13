@@ -34,6 +34,7 @@ func _apply_world() -> void:
 	day_layer.collision_enabled = not is_night
 	night_layer.visible = is_night
 	night_layer.collision_enabled = is_night
+	_update_ghosts(is_night)
 
 # Check if this node with overlapped with another layer 
 func _hits_wall(node: Node2D, layer: TileMapLayer) -> bool:
@@ -54,3 +55,8 @@ func _can_shift_to(layer: TileMapLayer) -> bool:
 func _flash_red() -> void:
 	red_flash.modulate.a = 1.0
 	create_tween().tween_property(red_flash, "modulate:a", 0.0, 0.3)
+
+# tell ghost which world this is
+func _update_ghosts(is_night_now: bool) -> void:
+	for gh in get_tree().get_nodes_in_group("ghosts"):
+		gh.set_night(is_night_now)
