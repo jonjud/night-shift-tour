@@ -3,7 +3,7 @@ extends Node2D
 const SHIFT_COOLDOWN : float = 1.5
 const GOAL_RADIUS := 20.0
 const GUEST_REWARD := 100
-const SHIFT_TIME := 180.0  # 3 นาที
+const SHIFT_TIME := 10.0 # 3 mins
 
 @onready var day_layer : TileMapLayer = $DayLayer
 @onready var night_layer : TileMapLayer = $NightLayer
@@ -11,10 +11,12 @@ const SHIFT_TIME := 180.0  # 3 นาที
 @onready var money_label: Label = $HUD/MoneyLabel
 @onready var goal: Node2D = $FerrisWheel
 @onready var time_label: Label = $HUD/TimeLabel
+@onready var end_screen: CanvasLayer = $EndLayer
 
 var is_night : bool = false
 var cooldown_left : float = 0.0
 var money := 0
+var saved := 0
 var time_left := SHIFT_TIME
 var shift_over := false
 
@@ -28,13 +30,18 @@ func _process(delta: float) -> void:
 	if shift_over:
 		return
 	time_left = maxf(time_left - delta, 0.0)
-	var t := ceili(time_left)  # ปัดขึ้น: เริ่มที่ 3:00 จบที่ 0:00
+	var t := ceili(time_left)  # rounded up
 	time_label.text = "%d:%02d" % [t / 60, t % 60]
 	if time_left <= 0.0:
 		end_shift()
 
 func _physics_process(_delta: float) -> void:
+	if shift_over:
+		return
 	_check_goal()
+	# จบกะถ้าไม่มีแขกเหลือ (vanish() ออกจาก group ทันที)
+	if get_tree().get_nodes_in_group("guests").is_empty():
+		end_shift()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("shift_world"):
@@ -96,4 +103,5 @@ func _check_goal() -> void:
 func end_shift() -> void:
 	shift_over = true
 	time_label.text = "0:00 SHIFT OVER"
-	get_tree().paused = true  # หยุดผู้เล่น/ผี/แขกทั้งหมด (Chunk 12 จะตั้ง process_mode ให้จอจบเกมรับปุ่ม R)
+	end_screen.show_result(saved, money)
+	get_tree().paused = true 

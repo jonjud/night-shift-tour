@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://j5b5ecy2iu7p" path="res://scenes/guest.tscn" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://b7bp7xxiq4efw" path="res://scenes/ghost.tscn" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://dri5ghik3n35a" path="res://scenes/demon.tscn" id="6_tefeu"]
+[ext_resource type="Script" uid="uid://c7g5pr5gulu7s" path="res://scripts/end_layer.gd" id="7_o6xl0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sugp2"]
 texture = ExtResource("2_0wfyh")
@@ -101,3 +102,26 @@ offset_bottom = 23.0
 grow_horizontal = 2
 text = "3:00"
 horizontal_alignment = 1
+
+[node name="EndLayer" type="CanvasLayer" parent="." unique_id=1280729730]
+process_mode = 3
+script = ExtResource("7_o6xl0")
+
+[node name="Dim" type="ColorRect" parent="EndLayer" unique_id=497460373]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.7490196)
+
+[node name="ResultLabel" type="Label" parent="EndLayer" unique_id=1441546221]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+vertical_alignment = 1
