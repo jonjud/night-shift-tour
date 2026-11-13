@@ -3,7 +3,7 @@ extends Node2D
 const SHIFT_COOLDOWN : float = 1.5
 const GOAL_RADIUS := 20.0
 const GUEST_REWARD := 100
-const SHIFT_TIME := 180.0 # 3 mins
+const SHIFT_TIME := 60.0 # 3 mins
 
 @onready var day_layer : TileMapLayer = $DayLayer
 @onready var night_layer : TileMapLayer = $NightLayer
