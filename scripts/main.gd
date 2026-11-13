@@ -41,6 +41,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		if cooldown_left > 0.0:
 			print("Shift blocked, cooldown left ", snappedf(cooldown_left,0.1))
 			return
+		var target := night_layer if not is_night else day_layer  # NEW
+		if not _can_shift_to(target):                              # NEW
+			_flash_red()                                           # NEW
+			return  
 		is_night = not is_night
 		cooldown_left = SHIFT_COOLDOWN
 		_apply_world()
