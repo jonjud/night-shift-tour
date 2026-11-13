@@ -1,6 +1,7 @@
 extends Node2D
 
 const SPEED := 30.0  # slower than player
+const TOUCH_DIST := 8.0 #the distance that count as "touching" *feeling weird saying that*
 
 var active := false  # true only at night (nightLayer)
 
@@ -10,11 +11,14 @@ func set_night(is_night: bool) -> void:
 
 func _physics_process(delta: float) -> void:
 	if not active:
-		return  # stay still in daylight
+		return
 	var target := _nearest_guest()
 	if target == null:
 		return
 	global_position = global_position.move_toward(target.global_position, SPEED * delta)
+	# touched = vanish
+	if global_position.distance_to(target.global_position) <= TOUCH_DIST:
+		target.vanish()
 
 # find the nearest guest
 func _nearest_guest() -> Node2D:

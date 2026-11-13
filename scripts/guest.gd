@@ -8,3 +8,9 @@ extends Node2D
 func _physics_process(_delta: float) -> void:
 	# ไปยืนที่ตำแหน่งย้อนหลังของผู้เล่น
 	global_position = player.trail[trail_offset]
+
+func vanish() -> void:
+	remove_from_group("guests")
+	var tw : Tween = create_tween()
+	tw.tween_property(self , "modulate:a", 0.0, 0.25)
+	tw.tween_callback(queue_free)
