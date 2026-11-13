@@ -1,14 +1,18 @@
 extends Node2D
 
 const SHIFT_COOLDOWN : float = 1.5
+const GOAL_RADIUS := 20.0
+const GUEST_REWARD := 100
 
 @onready var day_layer : TileMapLayer = $DayLayer
 @onready var night_layer : TileMapLayer = $NightLayer
 @onready var red_flash: ColorRect = $FlashLayer/RedFlash
+@onready var money_label: Label = $HUD/MoneyLabel
+@onready var goal: Node2D = $FerrisWheel
 
 var is_night : bool = false
 var cooldown_left : float = 0.0
-
+var money := 0
 
 func _ready() -> void:
 	#always starting in day , no matter the inspector says
@@ -17,6 +21,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if cooldown_left > 0.0:
 		cooldown_left -= delta
+
+func _physics_process(_delta: float) -> void:
+	_check_goal()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("shift_world"):
@@ -62,3 +69,11 @@ func _update_ghosts(is_night_now: bool) -> void:
 		gh.set_night(is_night_now)
 	for dm in get_tree().get_nodes_in_group("demons"):
 		dm.set_night(is_night_now)
+
+# guest that get in the goal's redius = we get the money guest get outta train
+func _check_goal() -> void:
+	for g in get_tree().get_nodes_in_group("guests"):
+		if g.global_position.distance_to(goal.global_position) <= GOAL_RADIUS:
+			g.vanish()  # use the same function > vanish
+			money += GUEST_REWARD
+			money_label.text = "$%d" % money

@@ -32,25 +32,42 @@ tile_map_data = PackedByteArray("AADx//n/AAADAAAAAADx//r/AAADAAAAAADx//v/AAADAAA
 tile_set = SubResource("TileSet_htemk")
 
 [node name="Player" parent="." unique_id=1742126411 instance=ExtResource("1_o5qli")]
-position = Vector2(-46, -2)
+position = Vector2(-192, -1)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=873669907]
 
 [node name="Guest" parent="." unique_id=195671990 instance=ExtResource("4_jyhfs")]
-position = Vector2(-46, -2)
+position = Vector2(-192, -1)
 
 [node name="Guest2" parent="." unique_id=1712883963 instance=ExtResource("4_jyhfs")]
-position = Vector2(-46, -2)
+position = Vector2(-192, -1)
 trail_offset = 24
 
 [node name="Guest3" parent="." unique_id=1664171917 instance=ExtResource("4_jyhfs")]
-position = Vector2(-45, -2)
+position = Vector2(-191, -1)
 trail_offset = 36
 
 [node name="Ghost" parent="." unique_id=1940285773 instance=ExtResource("5_tbgi4")]
 
 [node name="Demon" parent="." unique_id=921988863 instance=ExtResource("6_tefeu")]
-position = Vector2(135, -1)
+position = Vector2(113, -1)
+
+[node name="FerrisWheel" type="Node2D" parent="." unique_id=1573307223 groups=["goal"]]
+position = Vector2(225, 0)
+
+[node name="Marker" type="ColorRect" parent="FerrisWheel" unique_id=973848362]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0.8235294, 0.24705882, 1)
 
 [node name="FlashLayer" type="CanvasLayer" parent="." unique_id=317446317]
 
@@ -63,3 +80,13 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(1, 0, 0, 1)
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=290148006]
+
+[node name="MoneyLabel" type="Label" parent="HUD" unique_id=732108616]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 48.0
+offset_bottom = 31.0
+theme_override_font_sizes/font_size = 16
+text = "$0"
