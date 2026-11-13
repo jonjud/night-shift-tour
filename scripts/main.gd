@@ -3,16 +3,20 @@ extends Node2D
 const SHIFT_COOLDOWN : float = 1.5
 const GOAL_RADIUS := 20.0
 const GUEST_REWARD := 100
+const SHIFT_TIME := 180.0  # 3 นาที
 
 @onready var day_layer : TileMapLayer = $DayLayer
 @onready var night_layer : TileMapLayer = $NightLayer
 @onready var red_flash: ColorRect = $FlashLayer/RedFlash
 @onready var money_label: Label = $HUD/MoneyLabel
 @onready var goal: Node2D = $FerrisWheel
+@onready var time_label: Label = $HUD/TimeLabel
 
 var is_night : bool = false
 var cooldown_left : float = 0.0
 var money := 0
+var time_left := SHIFT_TIME
+var shift_over := false
 
 func _ready() -> void:
 	#always starting in day , no matter the inspector says
@@ -21,6 +25,13 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if cooldown_left > 0.0:
 		cooldown_left -= delta
+	if shift_over:
+		return
+	time_left = maxf(time_left - delta, 0.0)
+	var t := ceili(time_left)  # ปัดขึ้น: เริ่มที่ 3:00 จบที่ 0:00
+	time_label.text = "%d:%02d" % [t / 60, t % 60]
+	if time_left <= 0.0:
+		end_shift()
 
 func _physics_process(_delta: float) -> void:
 	_check_goal()
@@ -77,3 +88,8 @@ func _check_goal() -> void:
 			g.vanish()  # use the same function > vanish
 			money += GUEST_REWARD
 			money_label.text = "$%d" % money
+
+func end_shift() -> void:
+	shift_over = true
+	time_label.text = "0:00 SHIFT OVER"
+	get_tree().paused = true  # หยุดผู้เล่น/ผี/แขกทั้งหมด (Chunk 12 จะตั้ง process_mode ให้จอจบเกมรับปุ่ม R)
