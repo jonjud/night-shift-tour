@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://dri5ghik3n35a"]
+
+[ext_resource type="Script" uid="uid://bthj1veh6h6k5" path="res://scripts/demon.gd" id="1_ye80u"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1vivr"]
+radius = 40.0
+
+[node name="Demon" type="Node2D" unique_id=921988863 groups=["demons"]]
+script = ExtResource("1_ye80u")
+
+[node name="Body" type="ColorRect" parent="." unique_id=2038180654]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.5
+offset_top = -8.5
+offset_right = 8.5
+offset_bottom = 8.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.627451, 0.0627451, 0.1254902, 1)
+
+[node name="Zone" type="Area2D" parent="." unique_id=495029189]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Zone" unique_id=1732018289]
+shape = SubResource("CircleShape2D_1vivr")

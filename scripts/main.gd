@@ -56,7 +56,9 @@ func _flash_red() -> void:
 	red_flash.modulate.a = 1.0
 	create_tween().tween_property(red_flash, "modulate:a", 0.0, 0.3)
 
-# tell ghost which world this is
+# tell ghost/demon which world this is
 func _update_ghosts(is_night_now: bool) -> void:
 	for gh in get_tree().get_nodes_in_group("ghosts"):
 		gh.set_night(is_night_now)
+	for dm in get_tree().get_nodes_in_group("demons"):
+		dm.set_night(is_night_now)
