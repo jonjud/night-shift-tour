@@ -104,7 +104,7 @@ func _update_ghosts(is_night_now: bool) -> void:
 func _check_goal() -> void:
 	for g in get_tree().get_nodes_in_group("guests"):
 		if g.global_position.distance_to(goal.global_position) <= GOAL_RADIUS:
-			g.vanish()  # use the same function > vanish
+			g.suck_into(goal.global_position) #change from vanish to sucking... (nah it's so weird) 
 			money += GUEST_REWARD
 			money_label.text = "$%d" % money
 

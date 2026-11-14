@@ -14,3 +14,13 @@ func vanish() -> void:
 	var tw : Tween = create_tween()
 	tw.tween_property(self , "modulate:a", 0.0, 0.25)
 	tw.tween_callback(queue_free)
+
+# pulled into the Ferris wheel: fly to the hub, shrink, fade
+func suck_into(target: Vector2) -> void:
+	remove_from_group("guests")
+	set_physics_process(false)  # stop following the player's trail
+	var tw := create_tween().set_parallel(true)
+	tw.tween_property(self, "global_position", target, 0.35)
+	tw.tween_property(self, "scale", Vector2(0.2, 0.2), 0.35)
+	tw.tween_property(self, "modulate:a", 0.0, 0.35)
+	tw.chain().tween_callback(queue_free)
