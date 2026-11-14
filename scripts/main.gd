@@ -10,6 +10,17 @@ const SFX := {
 	"blocked": preload("res://assets/audio/blocked.wav"),
 }
 
+const ORIGIN := Vector2i(-15, -3)  # same as tools/build.gd
+# char -> [day atlas, night atlas] | day: 0 floor 1 wall 4 moon gate | night: 2 floor 3 wall 5 sun gate
+const TILES := {
+	"#": [1, 3],  # wall in both worlds
+	".": [0, 2],  # floor in both worlds
+	"n": [4, 2],  # closed by day / open at night
+	"d": [0, 5],  # open by day / closed at night
+}
+
+@export var level_path := "res://levels/level01.txt"
+
 @onready var day_layer : TileMapLayer = $DayLayer
 @onready var night_layer : TileMapLayer = $NightLayer
 @onready var red_flash: ColorRect = $FlashLayer/RedFlash
@@ -27,6 +38,7 @@ var time_left := SHIFT_TIME
 var shift_over := false
 
 func _ready() -> void:
+	_load_level()
 	#always starting in day , no matter the inspector says
 	_apply_world()
 
@@ -65,6 +77,27 @@ func _unhandled_input(event: InputEvent) -> void:
 		_shift_flash(is_night)
 		_play_sfx("shift")
 		print("Shifted! is_night = ", is_night)
+
+# read ASCII level file and paint both tile layers
+func _load_level() -> void:
+	var f := FileAccess.open(level_path, FileAccess.READ)
+	if f == null:
+		push_error("Level not found: " + level_path)
+		return
+	day_layer.clear()
+	night_layer.clear()
+	var row := 0
+	while not f.eof_reached():
+		var line := f.get_line().trim_suffix("\r")
+		if line == "":
+			continue
+		for col in line.length():
+			# unknown chars (P, G ... in 28b) count as floor for now
+			var pair: Array = TILES.get(line[col], TILES["."])
+			var cell := Vector2i(col, row) + ORIGIN
+			day_layer.set_cell(cell, 0, Vector2i(pair[0], 0))
+			night_layer.set_cell(cell, 0, Vector2i(pair[1], 0))
+		row += 1
 
 func _apply_world() -> void:
 	# HAVE TO SET BOTH VISINIL AND ENABLE-Y

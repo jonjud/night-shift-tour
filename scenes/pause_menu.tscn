@@ -22,7 +22,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)
+color = Color(0, 0, 0, 0.627451)
 
 [node name="Center" type="CenterContainer" parent="Root" unique_id=206613851]
 layout_mode = 1
@@ -44,8 +44,7 @@ horizontal_alignment = 1
 
 [node name="ResumeButton" type="Button" parent="Root/Center/VBox" unique_id=1860010141]
 layout_mode = 2
-text = "Resume
-"
+text = "Resume"
 
 [node name="VolumeLabel" type="Label" parent="Root/Center/VBox" unique_id=272911791]
 layout_mode = 2
