@@ -1,20 +1,10 @@
 [gd_scene format=3 uid="uid://b7bp7xxiq4efw"]
 
 [ext_resource type="Script" uid="uid://ckfro34pfxt2x" path="res://scripts/ghost.gd" id="1_t76o2"]
+[ext_resource type="Texture2D" uid="uid://conbv8fye6lp" path="res://assets/sprites/ghost.png" id="2_l5lq6"]
 
 [node name="Ghost" type="Node2D" unique_id=1940285773 groups=["ghosts"]]
 script = ExtResource("1_t76o2")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=866982776]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -6.0
-offset_top = -6.0
-offset_right = 6.0
-offset_bottom = 6.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.78431374, 0.6901961, 1, 1)
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=117871025]
+texture = ExtResource("2_l5lq6")
