@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://bnw48bgmixnbd"]
+
+[ext_resource type="Script" uid="uid://c64akc1xw748h" path="res://scripts/pause_menu.gd" id="1_n87rw"]
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=703155958]
+process_mode = 3
+layer = 10
+script = ExtResource("1_n87rw")
+
+[node name="Root" type="Control" parent="." unique_id=119099752]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dim" type="ColorRect" parent="Root" unique_id=1042511252]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Center" type="CenterContainer" parent="Root" unique_id=206613851]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Root/Center" unique_id=1952487393]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TitleLabel" type="Label" parent="Root/Center/VBox" unique_id=1296801665]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "PAUSED"
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="Root/Center/VBox" unique_id=1860010141]
+layout_mode = 2
+text = "Resume
+"
+
+[node name="VolumeLabel" type="Label" parent="Root/Center/VBox" unique_id=272911791]
+layout_mode = 2
+text = "Volume"
+horizontal_alignment = 1
+
+[node name="VolumeSlider" type="HSlider" parent="Root/Center/VBox" unique_id=1038816204]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="MenuButton" type="Button" parent="Root/Center/VBox" unique_id=371168387]
+layout_mode = 2
+text = "Menu
+"
