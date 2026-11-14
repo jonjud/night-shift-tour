@@ -26,8 +26,8 @@ func _run() -> void:
 			var cell := ORIGIN + Vector2i(c, r)
 			var day_wall := ch == "#" or ch == "n"
 			var night_wall := ch == "#" or ch == "d"
-			# day: atlas 0=floor 1=wall | night: 2=floor 3=wall
-			day.set_cell(cell, 0, Vector2i(1 if day_wall else 0, 0))
-			night.set_cell(cell, 0, Vector2i(3 if night_wall else 2, 0))
+			# day: 0=floor 1=wall 4=moon gate | night: 2=floor 3=wall 5=sun gate
+			day.set_cell(cell, 0, Vector2i(4 if ch == "n" else (1 if day_wall else 0), 0))
+			night.set_cell(cell, 0, Vector2i(5 if ch == "d" else (3 if night_wall else 2), 0))
 	EditorInterface.save_scene()
 	print("Map built")
