@@ -8,6 +8,7 @@ const SHIFT_TIME := 60.0 # 3 mins
 @onready var day_layer : TileMapLayer = $DayLayer
 @onready var night_layer : TileMapLayer = $NightLayer
 @onready var red_flash: ColorRect = $FlashLayer/RedFlash
+@onready var shift_flash: ColorRect = $FlashLayer/ShiftFlash
 @onready var money_label: Label = $HUD/MoneyLabel
 @onready var goal: Node2D = $FerrisWheel
 @onready var time_label: Label = $HUD/TimeLabel
@@ -55,6 +56,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		is_night = not is_night
 		cooldown_left = SHIFT_COOLDOWN
 		_apply_world()
+		_shift_flash(is_night)
 		print("Shifted! is_night = ", is_night)
 
 func _apply_world() -> void:
@@ -84,6 +86,12 @@ func _can_shift_to(layer: TileMapLayer) -> bool:
 func _flash_red() -> void:
 	red_flash.modulate.a = 1.0
 	create_tween().tween_property(red_flash, "modulate:a", 0.0, 0.3)
+
+# screen pulse on world shift: purple -> night, warm yellow -> day
+func _shift_flash(to_night: bool) -> void:
+	shift_flash.color = Color(0.35, 0.2, 0.6) if to_night else Color(1.0, 0.95, 0.7)
+	shift_flash.modulate.a = 0.6
+	create_tween().tween_property(shift_flash, "modulate:a", 0.0, 0.25)
 
 # tell ghost/demon which world this is
 func _update_ghosts(is_night_now: bool) -> void:

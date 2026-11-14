@@ -63,6 +63,15 @@ texture = ExtResource("7_tipki")
 
 [node name="FlashLayer" type="CanvasLayer" parent="." unique_id=317446317]
 
+[node name="ShiftFlash" type="ColorRect" parent="FlashLayer" unique_id=62221932]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
 [node name="RedFlash" type="ColorRect" parent="FlashLayer" unique_id=1183970073]
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
