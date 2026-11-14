@@ -86,18 +86,37 @@ func _load_level() -> void:
 		return
 	day_layer.clear()
 	night_layer.clear()
+	var spots := {}  # letter entity -> position in world
 	var row := 0
 	while not f.eof_reached():
 		var line := f.get_line().trim_suffix("\r")
 		if line == "":
 			continue
 		for col in line.length():
-			# unknown chars (P, G ... in 28b) count as floor for now
-			var pair: Array = TILES.get(line[col], TILES["."])
+			var ch := line[col]
 			var cell := Vector2i(col, row) + ORIGIN
+			if ch in "PGMF":
+				spots[ch] = day_layer.to_global(day_layer.map_to_local(cell))
+			# unknow enitity become floor
+			var pair: Array = TILES.get(ch, TILES["."])
 			day_layer.set_cell(cell, 0, Vector2i(pair[0], 0))
 			night_layer.set_cell(cell, 0, Vector2i(pair[1], 0))
 		row += 1
+	_place_entities(spots)
+
+# move node follow entity in level file
+func _place_entities(spots: Dictionary) -> void:
+	if spots.has("P"):
+		$Player.global_position = spots["P"]
+		$Player.trail.fill(spots["P"])
+		for g in get_tree().get_nodes_in_group("guests"):
+			g.global_position = spots["P"]
+	if spots.has("G"):
+		$Ghost.global_position = spots["G"]
+	if spots.has("M"):
+		$Demon.global_position = spots["M"]
+	if spots.has("F"):
+		goal.global_position = spots["F"]
 
 func _apply_world() -> void:
 	# HAVE TO SET BOTH VISINIL AND ENABLE-Y
