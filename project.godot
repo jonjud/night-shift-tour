@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Night Shift Tour"
-run/main_scene="uid://vipavkgt1wol"
+run/main_scene="uid://fr7ogoormmd6"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 

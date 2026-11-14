@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://fr7ogoormmd6"]
+
+[ext_resource type="Script" uid="uid://uedvrguk5cpy" path="res://scripts/main_menu.gd" id="1_l6cm7"]
+
+[node name="MainMenu" type="Control" unique_id=2073096317]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l6cm7")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=672258260]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.078431375, 0.05882353, 0.14117648, 1)
+
+[node name="Center" type="CenterContainer" parent="." unique_id=1098101703]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Center" unique_id=1858396920]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TitleLabel" type="Label" parent="Center/VBox" unique_id=387992854]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "NIGHT SHIFT TOUR"
+horizontal_alignment = 1
+
+[node name="StartButton" type="Button" parent="Center/VBox" unique_id=1075962688]
+layout_mode = 2
+text = "Start"
+
+[node name="QuitButton" type="Button" parent="Center/VBox" unique_id=1216620434]
+layout_mode = 2
+text = "Quit"
