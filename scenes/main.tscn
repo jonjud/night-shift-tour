@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b7bp7xxiq4efw" path="res://scenes/ghost.tscn" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://dri5ghik3n35a" path="res://scenes/demon.tscn" id="6_tefeu"]
 [ext_resource type="Script" uid="uid://c7g5pr5gulu7s" path="res://scripts/end_layer.gd" id="7_o6xl0"]
+[ext_resource type="Texture2D" uid="uid://db0735jql6cjh" path="res://assets/sprites/ferris_wheel.png" id="7_tipki"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sugp2"]
 texture = ExtResource("2_0wfyh")
@@ -57,19 +58,8 @@ position = Vector2(40, 8)
 [node name="FerrisWheel" type="Node2D" parent="." unique_id=1573307223 groups=["goal"]]
 position = Vector2(216, 8)
 
-[node name="Marker" type="ColorRect" parent="FerrisWheel" unique_id=973848362]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -12.0
-offset_top = -12.0
-offset_right = 12.0
-offset_bottom = 12.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(1, 0.8235294, 0.24705882, 1)
+[node name="Sprite2D" type="Sprite2D" parent="FerrisWheel" unique_id=1523626408]
+texture = ExtResource("7_tipki")
 
 [node name="FlashLayer" type="CanvasLayer" parent="." unique_id=317446317]
 
