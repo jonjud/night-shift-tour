@@ -4,6 +4,11 @@ const SHIFT_COOLDOWN : float = 1.5
 const GOAL_RADIUS := 20.0
 const GUEST_REWARD := 100
 const SHIFT_TIME := 60.0 # 3 mins
+const SFX := {
+	"shift": preload("res://assets/audio/shift.wav"),
+	"coin": preload("res://assets/audio/coin.wav"),
+	"blocked": preload("res://assets/audio/blocked.wav"),
+}
 
 @onready var day_layer : TileMapLayer = $DayLayer
 @onready var night_layer : TileMapLayer = $NightLayer
@@ -52,11 +57,13 @@ func _unhandled_input(event: InputEvent) -> void:
 		var target := night_layer if not is_night else day_layer  # NEW
 		if not _can_shift_to(target):                              # NEW
 			_flash_red()                                           # NEW
+			_play_sfx("blocked")
 			return  
 		is_night = not is_night
 		cooldown_left = SHIFT_COOLDOWN
 		_apply_world()
 		_shift_flash(is_night)
+		_play_sfx("shift")
 		print("Shifted! is_night = ", is_night)
 
 func _apply_world() -> void:
@@ -106,6 +113,7 @@ func _check_goal() -> void:
 		if g.global_position.distance_to(goal.global_position) <= GOAL_RADIUS:
 			g.suck_into(goal.global_position) #change from vanish to sucking... (nah it's so weird) 
 			money += GUEST_REWARD
+			_play_sfx("coin")
 			money_label.text = "$%d" % money
 
 func end_shift() -> void:
@@ -113,3 +121,11 @@ func end_shift() -> void:
 	time_label.text = "0:00 SHIFT OVER"
 	end_screen.show_result(saved, money)
 	get_tree().paused = true 
+
+# one-shot sfx; own player each time so sounds can overlap
+func _play_sfx(key: String) -> void:
+	var p := AudioStreamPlayer.new()
+	p.stream = SFX[key]
+	add_child(p)
+	p.finished.connect(p.queue_free)
+	p.play()
